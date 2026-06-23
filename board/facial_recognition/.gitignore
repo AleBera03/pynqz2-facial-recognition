@@ -1,0 +1,9 @@
+__pycache__
+
+images
+objects
+people
+
+face_database.csv
+
+quantize_results

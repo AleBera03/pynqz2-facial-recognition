@@ -1,0 +1,30 @@
+services:
+  dnndk-image:
+    image: dnndk-image
+    environment:
+      - UID=1000
+      - GID=1000
+      # - NVIDIA_VISIBLE_DEVICES=all # comment if CPU configuration
+      # - NVIDIA_DRIVER_CAPABILITIES=compute,utility,video,display # comment if CPU configuration
+    build:
+      context: .
+      args:
+        - MODE=cpu # set "cpu" for CPU configuration
+        - USERNAME=dnndk
+        - PASSWORD=dnndk
+    container_name: dnndk-container
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    ports:
+      - 2222:22
+    volumes:
+      - ./models:/home/dnndk/models
+    # comment all below for CPU configurazione
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
